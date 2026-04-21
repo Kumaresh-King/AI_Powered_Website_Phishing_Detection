@@ -1,84 +1,32 @@
-document.getElementById("check").addEventListener("click", function(){
+document.addEventListener("DOMContentLoaded", () => {
 
-chrome.tabs.query({active:true,currentWindow:true}, function(tabs){
+    const btn = document.getElementById("scanBtn");
 
-let url = tabs[0].url;
+    if (!btn) {
+        console.error("Button not found!");
+        return;
+    }
 
-fetch("http://127.0.0.1:5000/predict",{
+    btn.addEventListener("click", () => {
 
-method:"POST",
+        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
 
-headers:{
-"Content-Type":"application/json"
-},
+            let url = tabs[0].url;
 
-body:JSON.stringify({url:url})
+            fetch("https://ai-powered-website-phishing-detection.onrender.com/predict", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ url: url })
+            })
+            .then(res => res.json())
+            .then(data => {
+                alert("Result: " + data.result);
+            })
+            .catch(err => console.error("API ERROR:", err));
+        });
 
-})
+    });
 
-.then(response => response.json())
-
-.then(data => {
-
-
-})
-
-.catch(error => {
-
-document.getElementById("result").innerText="Server Offline"
-
-})
-
-})
-
-})
-document.getElementById("check").addEventListener("click", function(){
-
-chrome.tabs.query({active:true,currentWindow:true}, function(tabs){
-
-let url = tabs[0].url;
-
-fetch("http://127.0.0.1:5000/predict",{
-
-method:"POST",
-
-headers:{
-"Content-Type":"application/json"
-},
-
-body:JSON.stringify({url:url})
-
-})
-
-.then(response => response.json())
-
-.then(data => {
-
-let resultBox = document.getElementById("result")
-let confidenceBox = document.getElementById("confidence")
-
-if(data.result === "phishing"){
-
-resultBox.innerHTML = "PHISHING WEBSITE"
-resultBox.style.color = "red"
-
-}else{
-
-resultBox.innerHTML = "SAFE WEBSITE"
-resultBox.style.color = "lime"
-
-}
-
-confidenceBox.innerHTML = "Confidence: " + data.confidence + "%"
-
-})
-
-.catch(error => {
-
-document.getElementById("result").innerText="Server Offline"
-
-})
-
-})
-
-})
+});
