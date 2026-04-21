@@ -6,9 +6,6 @@
 - Machine Learning model
 
 ## How to Run
-
 cd backend
 pip install -r requirements.txt
 python api.py
-
-Then load extension in Chrome.
