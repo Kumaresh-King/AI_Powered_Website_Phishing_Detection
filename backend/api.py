@@ -118,11 +118,12 @@ def predict():
         return jsonify({"error": str(e)})
 
 
-@app.route("/logs")
+@app.route("/logs", methods=["GET"])
 def get_logs():
     return jsonify(logs)
 
 
+# 🚀 START SERVER (Render compatible)
 import os
 
 if __name__ == "__main__":
