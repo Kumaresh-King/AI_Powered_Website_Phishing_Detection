@@ -17,7 +17,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
             return;
         }
 
-        fetch("https://your-app.onrender.com/predict", {
+        fetch("https://ai-powered-website-phishing-detection.onrender.com/predict", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -57,4 +57,29 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         }, 60000);
     }
 
+});
+let currentURL = window.location.href;
+
+fetch("https://ai-powered-website-phishing-detection.onrender.com/predict", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ url: currentURL })
+})
+.then(response => response.json())
+.then(data => {
+
+    if (data.result === "phishing") {
+
+        chrome.storage.local.set({ blockedURL: currentURL });
+
+        chrome.tabs.update({
+            url: chrome.runtime.getURL("warning.html")
+        });
+    }
+
+})
+.catch(error => {
+    console.error("API Error:", error);
 });

@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, app, request, jsonify
 from flask_cors import CORS
 import joblib
 import os
@@ -6,9 +6,7 @@ import re
 from urllib.parse import urlparse
 from pathlib import Path
 
-app = Flask(__name__)
-CORS(app)
-
+CORS(app, resources={r"/*": {"origins": "*"}})
 # 📁 Load model safely
 model_path = Path(__file__).resolve().parent.parent / "model" / "phishing_model.pkl"
 
