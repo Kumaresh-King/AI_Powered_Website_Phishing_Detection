@@ -2,11 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const btn = document.getElementById("scanBtn");
 
-    if (!btn) {
-        console.error("Button not found!");
-        return;
-    }
-
     btn.addEventListener("click", () => {
 
         chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
@@ -22,9 +17,23 @@ document.addEventListener("DOMContentLoaded", () => {
             })
             .then(res => res.json())
             .then(data => {
-                alert("Result: " + data.result);
+
+                // ✅ SHOW RESULT IN UI
+                document.getElementById("result").innerText =
+                    "Result: " + data.result;
+
+                document.getElementById("confidence").innerText =
+                    "Confidence: " + (data.confidence * 100).toFixed(2) + "%";
+
+                // 🎨 OPTIONAL COLOR
+                if (data.result === "phishing") {
+                    document.getElementById("result").style.color = "red";
+                } else {
+                    document.getElementById("result").style.color = "green";
+                }
+
             })
-            .catch(err => console.error("API ERROR:", err));
+            .catch(err => console.error(err));
         });
 
     });

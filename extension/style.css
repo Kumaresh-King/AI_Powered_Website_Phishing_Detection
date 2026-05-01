@@ -1,66 +1,20 @@
-body{
-width:260px;
-font-family:Arial;
-background:#0f172a;
-color:white;
-text-align:center;
+body {
+    font-family: Arial;
+    background: #0b1a2f;
+    color: white;
+    text-align: center;
+    padding: 10px;
 }
 
-.container{
-padding:15px;
+button {
+    padding: 10px;
+    background: #4CAF50;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
 }
 
-h2{
-font-size:18px;
-margin-bottom:15px;
-}
-
-button{
-background:#2563eb;
-color:white;
-border:none;
-padding:10px 15px;
-border-radius:6px;
-cursor:pointer;
-font-size:14px;
-}
-
-button:hover{
-background:#1d4ed8;
-}
-
-#result{
-margin-top:15px;
-font-size:16px;
-font-weight:bold;
-}body{
-width:260px;
-font-family:Arial;
-background:#0f172a;
-color:white;
-text-align:center;
-}
-
-.container{
-padding:15px;
-}
-
-button{
-background:#2563eb;
-color:white;
-border:none;
-padding:10px;
-border-radius:6px;
-cursor:pointer;
-}
-
-#result{
-margin-top:15px;
-font-size:16px;
-font-weight:bold;
-}
-
-#confidence{
-margin-top:5px;
-font-size:14px;
+button:hover {
+    background: #45a049;
 }

@@ -28,11 +28,20 @@ def extract_features(url):
 
     return [[
         len(url),
+        len(parsed.netloc),
+        len(parsed.path),
         url.count('.'),
         url.count('-'),
+        url.count('@'),
+        url.count('?'),
+        url.count('='),
         sum(c.isdigit() for c in url),
+        sum(c.isalpha() for c in url),
+        sum(not c.isalnum() for c in url),
         1 if parsed.scheme == "https" else 0,
-        has_ip(url)
+        has_ip(url),
+        parsed.netloc.count('.'),
+        sum(word in url.lower() for word in ["login","secure","bank","verify","update"])
     ]]
 
 # 🏠 Home route
@@ -52,7 +61,8 @@ def predict():
         # If model not loaded, fallback logic
         if model:
             prediction = int(model.predict(features)[0])
-            confidence = float(model.predict_proba(features)[0][prediction])
+            probs = model.predict_proba(features)[0]
+            confidence = float(max(probs))   # highest probability
         else:
             # simple fallback rule
             prediction = 1 if "login" in url or "secure" in url else 0

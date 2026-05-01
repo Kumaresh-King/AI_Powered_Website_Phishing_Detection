@@ -20,11 +20,12 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ url:  "http://fake-paypal-login-secure.com" })
-
+            body: JSON.stringify({ url: tab.url })
         })
         .then(res => res.json())
         .then(data => {
+            console.log("API RESULT:", data);
+
             if (data.result === "phishing") {
 
                 let blockedURL = encodeURIComponent(tab.url);
@@ -33,6 +34,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
                     url: chrome.runtime.getURL("warning.html") + "?blocked=" + blockedURL
                 });
             }
+
         })
         .catch(err => console.error("API ERROR:", err));
     }
