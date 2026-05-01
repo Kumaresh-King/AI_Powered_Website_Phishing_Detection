@@ -62,9 +62,9 @@ def predict():
         rule_score = sum(word in url.lower() for word in ["login", "secure", "verify", "account", "update", "bank", "paypal"])
 
         # 🔥 OVERRIDE MODEL IF STRONG SIGNAL
-        if rule_score >= 2:
+        if rule_score >= 1:
             result = "phishing"
-            confidence = 0.90
+            confidence = 0.9
         else:
             result = "phishing" if prediction == 1 else "legitimate"
 
