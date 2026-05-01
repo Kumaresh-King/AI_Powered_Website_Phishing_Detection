@@ -57,7 +57,16 @@ def predict():
                 prediction = 0
                 confidence = 0.60
 
-        result = "phishing" if prediction == 1 else "legitimate"
+        suspicious_words = ["login", "secure", "verify", "account", "update", "bank", "paypal"]
+
+        rule_score = sum(word in url.lower() for word in ["login", "secure", "verify", "account", "update", "bank", "paypal"])
+
+        # 🔥 OVERRIDE MODEL IF STRONG SIGNAL
+        if rule_score >= 2:
+            result = "phishing"
+            confidence = 0.90
+        else:
+            result = "phishing" if prediction == 1 else "legitimate"
 
         # 📊 Store logs
         logs.append({

@@ -1,11 +1,10 @@
-console.log("Background script running 🚀");
 let allowList = {};
 
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
 
     if (changeInfo.status === "complete" && tab.url) {
-        console.log("Scanning URL:", tab.url);
 
+        // Ignore internal pages
         if (
             tab.url.startsWith("chrome://") ||
             tab.url.startsWith("edge://") ||
@@ -13,7 +12,10 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
             tab.url.startsWith("chrome-extension://")
         ) return;
 
+        // Skip allowed URLs
         if (allowList[tab.url]) return;
+
+        console.log("🔍 Checking URL:", tab.url);
 
         fetch("https://ai-powered-website-phishing-detection.onrender.com/predict", {
             method: "POST",
@@ -24,9 +26,12 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
         })
         .then(res => res.json())
         .then(data => {
-            console.log("API RESULT:", data);
+
+            console.log("✅ API RESULT:", data);
 
             if (data.result === "phishing") {
+
+                console.log("🚨 PHISHING DETECTED");
 
                 let blockedURL = encodeURIComponent(tab.url);
 
@@ -34,8 +39,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
                     url: chrome.runtime.getURL("warning.html") + "?blocked=" + blockedURL
                 });
             }
-
         })
-        .catch(err => console.error("API ERROR:", err));
+        .catch(err => console.error("❌ API ERROR:", err));
     }
 });
