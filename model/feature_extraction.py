@@ -11,35 +11,37 @@ def has_ip(url):
 
 
 def extract_features(url):
-
     parsed = urlparse(url)
 
     suspicious_tlds = ['.tk', '.ml', '.ga', '.cf', '.gq']
-    tld_flag = 1 if any(url.endswith(tld) for tld in suspicious_tlds) else 0
+    tld_flag = 1 if any(tld in parsed.netloc for tld in suspicious_tlds) else 0
+
     shorteners = ['bit.ly', 'tinyurl.com', 'goo.gl', 'ow.ly', 't.co']
     shortener_flag = 1 if any(shortener in url for shortener in shorteners) else 0
+
     long_url = 1 if len(url) > 75 else 0
 
+    keyword_count = sum(url.lower().count(word) for word in PHISHING_KEYWORDS)
+
     features = [
-        len(url),                        # 1 URL length
-        len(parsed.netloc),              # 2 Domain length
-        len(parsed.path),                # 3 Path length
-        url.count("."),                 # 4 Dot count
-        url.count("-"),                 # 5 Hyphen count
-        url.count("@"),                 # 6 @ count
-        url.count("?"),                 # 7 Query count
-        url.count("="),                 # 8 Equal count
-        sum(c.isdigit() for c in url),  # 9 Digit count
-        sum(c.isalpha() for c in url),  # 10 Alphabet count
-        sum(not c.isalnum() for c in url), # 11 Special char count
-        1 if parsed.scheme == "https" else 0, # 12 HTTPS
-        has_ip(url),                    # 13 IP usage
-        parsed.netloc.count("."),       # 14 Subdomain count
-        sum(1 for word in PHISHING_KEYWORDS if word in url.lower()), # 15 Keywords
-        tld_flag,                       # 16 Suspicious TLD
-        shortener_flag,                 # 17 URL Shortener
-        long_url                        # 18 Long URL
+        len(url),                        # 1
+        len(parsed.netloc),              # 2
+        len(parsed.path),                # 3
+        url.count("."),                 # 4
+        url.count("-"),                 # 5
+        url.count("@"),                 # 6
+        url.count("?"),                 # 7
+        url.count("="),                 # 8
+        sum(c.isdigit() for c in url),  # 9
+        sum(c.isalpha() for c in url),  # 10
+        sum(not c.isalnum() for c in url), # 11
+        1 if parsed.scheme == "https" else 0, # 12
+        has_ip(url),                    # 13
+        parsed.netloc.count("."),       # 14
+        keyword_count,                  # 15
+        tld_flag,                       # 16
+        shortener_flag,                 # 17
+        long_url                        # 18
     ]
-    
 
     return features
