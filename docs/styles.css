@@ -1,0 +1,31 @@
+/* Styles for AI-Powered Phishing Detection landing page */
+:root{
+  --bg:#0f1724; --card:#0b1220; --accent:#4f46e5; --muted:#9aa4b2; --glass:rgba(255,255,255,0.03);
+  --max:1000px;
+}
+*{box-sizing:border-box}
+body{font-family:Inter,system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial; margin:0; color:#e6eef4; background: linear-gradient(180deg,#061022 0%, #071126 100%);}
+.container{max-width:var(--max);margin:0 auto;padding:28px}
+.site-header{padding:44px 0;text-align:center}
+.site-header h1{margin:0;font-size:32px}
+.tagline{color:var(--muted);margin-top:8px}
+.buttons{margin-top:18px}
+.btn{display:inline-block;padding:10px 16px;border-radius:8px;background:transparent;color:var(--muted);border:1px solid rgba(255,255,255,0.06);text-decoration:none;margin-right:8px}
+.btn.primary{background:linear-gradient(90deg,var(--accent),#7c3aed);box-shadow:0 6px 18px rgba(79,70,229,0.18);color:white;border:0}
+.hero{display:flex;gap:24px;align-items:center;flex-wrap:wrap;margin-top:10px}
+.hero-content{flex:1}
+.hero-content h2{font-size:22px;margin:0 0 8px}
+.feature-list{list-style:none;padding:0;color:var(--muted)}
+.hero-preview{width:320px}
+.mockup{background:var(--glass);border-radius:10px;padding:12px;border:1px solid rgba(255,255,255,0.03)}
+.mockup-header{background:rgba(0,0,0,0.3);padding:8px;border-radius:6px;color:#fff;font-weight:600}
+.mockup-body{padding:18px;margin-top:8px;background:rgba(255,255,255,0.02);border-radius:6px;color:#ffdede}
+.split{display:grid;grid-template-columns:1fr 320px;gap:24px;margin-top:28px}
+pre{background:#071126;padding:12px;border-radius:8px;color:var(--muted);overflow:auto}
+.note{color:var(--muted);font-size:14px}
+.features{margin-top:28px}
+.cards{display:flex;gap:12px;flex-wrap:wrap}
+.card{flex:1;background:var(--card);padding:16px;border-radius:10px;border:1px solid rgba(255,255,255,0.03)}
+.contribute{margin-top:28px;padding:16px;background:rgba(255,255,255,0.02);border-radius:10px}
+.site-footer{padding:18px 0;text-align:center;color:var(--muted);border-top:1px solid rgba(255,255,255,0.02);margin-top:36px}
+@media(max-width:840px){.split{grid-template-columns:1fr}.hero-preview{width:100%}}

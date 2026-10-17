@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AI-Powered Phishing Detection</title>
+  <link rel="stylesheet" href="/docs/styles.css">
+  <meta name="description" content="AI-powered browser extension that detects phishing websites in real time using a machine learning model.">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <h1>AI-Powered Phishing Detection</h1>
+      <p class="tagline">A browser extension + ML backend that identifies phishing websites in real time.</p>
+      <div class="buttons">
+        <a class="btn primary" href="https://github.com/Kumaresh-King/AI_Powered_Website_Phishing_Detection" target="_blank">View on GitHub</a>
+        <a class="btn" href="#get-started">Get Started</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="hero-content">
+        <h2>Protect users from phishing attacks — automatically</h2>
+        <p>Monitor active tabs, analyze URLs with a trained model, and warn users before they reach malicious pages.</p>
+        <ul class="feature-list">
+          <li>Real-time URL scanning</li>
+          <li>Machine learning (XGBoost / scikit-learn style)</li>
+          <li>Chrome extension with warning page</li>
+          <li>Lightweight, easy to run locally</li>
+        </ul>
+      </div>
+      <div class="hero-preview">
+        <div class="mockup">
+          <div class="mockup-header">Extension popup</div>
+          <div class="mockup-body">Warning: This site appears to be phishing</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="get-started" class="split">
+      <div>
+        <h3>Quick start</h3>
+        <ol>
+          <li>Clone the repo: <code>git clone https://github.com/Kumaresh-King/AI_Powered_Website_Phishing_Detection.git</code></li>
+          <li>Run the backend:
+            <pre>cd backend
+pip install -r requirements.txt
+python api.py</pre>
+          </li>
+          <li>Load the extension in Chrome/Edge (Developer mode → Load unpacked → select <code>extension/</code> folder)</li>
+          <li>Open a suspicious URL to see the warning page in action</li>
+        </ol>
+        <p class="note">If you run the API locally, update <code>extension/background.js</code> to use <code>http://localhost:5000/predict</code>.</p>
+      </div>
+      <div>
+        <h3>Repository</h3>
+        <p>The full source, model artifacts, and feature extraction are available on GitHub. Contributions welcome.</p>
+        <a class="btn primary" href="https://github.com/Kumaresh-King/AI_Powered_Website_Phishing_Detection" target="_blank">Open repository</a>
+
+        <h4>Files of interest</h4>
+        <ul>
+          <li><code>extension/</code> — Chrome extension code (background, popup, warning page)</li>
+          <li><code>backend/</code> — Flask API that serves the ML model</li>
+          <li><code>model/</code> — feature extraction and model file</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="features">
+      <h3>How it works</h3>
+      <div class="cards">
+        <div class="card">
+          <h4>1. Capture</h4>
+          <p>The extension listens for tab updates and captures the active URL.</p>
+        </div>
+        <div class="card">
+          <h4>2. Analyze</h4>
+          <p>The backend extracts URL features (length, TLDs, keywords, special chars) and feeds them to the model.</p>
+        </div>
+        <div class="card">
+          <h4>3. Warn</h4>
+          <p>If the model returns phishing, the extension redirects the user to a warning page allowing an override.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="contribute">
+      <h3>Contributing</h3>
+      <p>Fork the repo, create a feature branch, and open a pull request. Please include tests or a short demo for UI changes.</p>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>Made by <strong>Kumaresh-King</strong> · <a href="https://github.com/Kumaresh-King/AI_Powered_Website_Phishing_Detection">GitHub repo</a></p>
+    </div>
+  </footer>
+
+  <script src="/docs/script.js"></script>
+</body>
+</html>
